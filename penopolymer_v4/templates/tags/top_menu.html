@@ -1,0 +1,69 @@
+{% load static wagtailcore_tags base_tags %}
+{% get_site_root as site_root %}
+
+
+<div class="container-fluid menu">
+    <div class="row">
+        <div class="container">
+            <div class="row">
+                <nav class="navbar">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                                data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Переключение меню</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <span class="navbar-brand visible-xs" href="#">Навигация по сайту:</span>
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        {% for menuitem in menuitems %}
+                            <ul class="nav navbar-nav">
+                                <li class="presentation
+                                        {{ menuitem.title|lower|cut:" " }}{% if menuitem.active %} active{% endif %}{% if menuitem.show_dropdown %} has-submenu{% endif %}">
+                                    {% if menuitem.show_dropdown %}
+                                        <a href="{% pageurl menuitem %}" class="" style="display: none">
+                                            <span>
+                                                <a class="caret-custom dropdown-toggle" data-toggle="dropdown"
+                                                   role="button" aria-haspopup="true" aria-expanded="false">
+                                                    {{ menuitem.title }}
+                                                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                                </a>
+                                            </span>
+                                        </a>
+                                        {% top_menu_children parent=menuitem %}
+                                    {% else %}
+                                        <a href="{% pageurl menuitem %}" role="menuitem">{{ menuitem.title }}</a>
+                                    {% endif %}
+                                </li>
+                            </ul>
+                        {% endfor %}
+                        <ul class="nav navbar-nav navbar-right menu-search row">
+                            <li>
+                                <div class="menu-search-wrap">
+                                    <form action="{% url 'search' %}" method="get" type="submit">
+                                        <input type="search"
+                                               name="query"
+                                               placeholder="Поиск по сайту"
+                                                {% if search_query %}
+                                               value="{{ search_query }}"
+                                                {% endif %}>
+                                    </form>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="https://www.facebook.com/pg/Penopolimer-898080973865909/groups/?ref=page_internal"
+                                   class="button-network"><i class="fa fa-facebook-f"></i></a>
+                            </li>
+                            <li>
+                                <a href="https://www.instagram.com/penopolimer/" class="button-network"><i
+                                        class="fa fa-instagram"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+
+<div class="container-fluid header">
+    <div class="row">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-xs-5 logo-wrapper">
+                    <a href="/">
+                        {% image header.logo original as logo %}
+                        <img src="{{ logo.url }}">
+                    </a>
+                </div>
+                <div class="col-md-6 col-xs-7 head-contacts">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <p>
+                                Отдел продаж
+                                <br>
+                                <span class="phones"><a href="tel:+74966252592" style="color: black; text-decoration: none;">{{ header.telephones|richtext }}</a></span>
+                                <span class="phones" style="color: black; text-decoration: none;">{{ header.email|richtext }}</span>
+                                <span style="margin-top: 10px;">{{ header.address|richtext }}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-xs-7 col-md-offset-0 col-xs-offset-5 text-right call-wrapper">
+                    <a href="/feedback-form.html" class="callme">
+                        <span>Быстрая форма</span>
+                        <span>обратной связи</span>
+                    </a>
+                    <a href="/download-doc.html" class="callme btn-top" tabindex="0">
+                        <span>Скачать</span>
+                        <span>Руководящий документ</span>
+                        <span>012.РД-001.03</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

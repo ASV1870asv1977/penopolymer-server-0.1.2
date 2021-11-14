@@ -1,0 +1,28 @@
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+
+<div class="container-fluid footer">
+    <div class="row">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="small-logo">
+                        <a href="/">
+                            {% image footer.logo original as logo %}
+                            <img src="{{ logo.url }}">
+                        </a>
+                    </div>
+                    <div class="footer-contact">
+                        <span>{{ footer.address|richtext }}</span>
+                        <span class="f-phones">{{ footer.telephones|richtext }}
+                            <!-- +7 (963)716-33-33 --> </span>
+                        <span>{{ footer.email|richtext }}</span>
+                    </div>
+                </div>
+                <div class="col-sm-6 text-right">
+                    Сайт сделан в «<a href="http://www.ener.ru">Энерго</a>» 2021г.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

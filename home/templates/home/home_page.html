@@ -1,0 +1,357 @@
+{% extends "base.html" %}
+{% load static wagtailimages_tags wagtailcore_tags base_tags %}
+
+
+{% block content %}
+
+
+
+    <div>
+        <article>
+            {% for block in page.body %}
+
+
+                {% if block.block_type == 'slideshow' %}
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="main-slider">
+                                {% for fig in block.value %}
+                                    {% image fig.figure original as bgimage %}
+                                    <div>
+                                        <div class="slide-wrap">
+                                            <div class="slide-pic"
+                                                 style="background-image: url('{{ bgimage.url }}'); background-size: cover">
+                                            </div>
+                                            <div class="container">
+                                                <div class="slide-content">
+                                                    <p style="text-shadow: 0.1em 0.1em 0.2em black; color: white;">
+                                                        <span class="slider-head"></span>
+                                                    </p>
+                                                    <div class="slide-button-wrapper">{{ fig.caption }}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% elif block.block_type == 'heading' %}
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="about-text">
+                                    <p>{{ block.value }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% elif block.block_type == 'caption' %}
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="about-text">
+                                    {{ block.value }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% elif block.block_type == 'title_blue_stripe_full' %}
+                    <div class="container-fluid menu abilities">
+                        <div class="row">
+                            <div class="title-mainPPM">{{ block.value }}</div>
+                        </div>
+                    </div>
+                {% elif block.block_type == 'title_blue_stripe_short' %}
+                    <div class="container">
+                        <div class="container-fluid menu abilities">
+                            <div class="row">
+                                <div class="title-mainPPM">{{ block.value }}</div>
+                            </div>
+                        </div>
+                    </div>
+                {% elif block.block_type == 'article_two' %}
+                    <div class="container-fluid content-wrapper">
+                        <div class="row">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        {% image block.value.figure_second original as secondimg %}
+                                        <img src="{{ secondimg.url }}" alt="" class="right-img" width="540"
+                                             style="padding: 0 20px;">
+                                        <p>{{ block.value.description_second }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% elif block.block_type == 'image_big' %}
+                    {% image block.value original as image_big %}
+                    <div class="img-wrapper isolation-abilities">
+                        <img src="{{ image_big.url }}">
+                    </div>
+                {% elif block.block_type == 'image_content' %}
+                    {% image block.value original as image_content %}
+                    <div class="img-wrapper isolation-abilities image-schema">
+                        <img src="{{ image_content.url }}">
+                    </div>
+                {% elif block.block_type == 'images_show' %}
+                    <div class="container-fluid m_gallery">
+                        {% for fig in block.value %}
+                            {% image fig.figure original as bgimage %}
+                            <div class="image_m_gallery">
+                                <img src="{{ bgimage.url }}">
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% elif block.block_type == 'article_text' %}
+                    <div class="container-fluid content-wrapper">
+                        <div class="row">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <p>{{ block.value }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% elif block.block_type == 'product_card_big' %}
+                    <div class="container prod-cards">
+                        <div class="row prod-list">
+                            {% for product in block.value %}
+                                {% image product.figure original as prodimage %}
+                                <div class="col-md-3 col-sm-6">
+                                    <div class="prod-card"
+                                         style="background-image: url({{ prodimage.url }});
+                                                 display: block;
+                                                 background-repeat: no-repeat;
+                                                 background-position: center top;
+                                                 transition: all .3s;
+                                                 box-sizing: border-box">
+                                        <a href="http://127.0.0.1:8000/" class="prod-link">
+                                            <span>{{ product.caption }}</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% elif block.block_type == 'product_card_little' %}
+                    <div class="container">
+                        <div style="display: flex; justify-content: center; flex-wrap: wrap">
+                            {% for product in block.value %}
+                                {% image product.figure fill-150x120 as prodimage %}
+                                <div style="background-color: white; height: 160px; margin: 5px;">
+                                    <div style="background-image: url({{ prodimage.url }});
+                                            width: 150px;
+                                            padding-top: 130px;
+                                            display: block;
+                                            background-repeat: no-repeat;
+                                            background-position: center top;
+                                            transition: all .3s;
+                                            box-sizing: border-box;
+                                            text-align: center">
+                                        {{ product.caption }}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% elif block.block_type == 'photo_gallery' %}
+                    {% counter_two 0 as count_two %}
+                    {% counter 0 as count %}
+                    <div class="container-fluid content-wrapper contacts">
+                        <div class="row">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="gallery-wrapper">
+                                            {% if count_two == 1 %}
+                                                <div class="gallery-block row">
+                                                    {% for fig in block.value %}
+                                                        {% if count <= 8 %}
+                                                            {% image fig.figure original as image_gallery %}
+                                                            <div class="col-md-3 col-sm-4">
+                                                                <a class="fancybox" href="{{ image_gallery.url }}"
+                                                                   rel="gallery-1">
+                                                                    <img src="{{ image_gallery.url }}"
+                                                                         class="img-responsive"
+                                                                         alt=""/>
+                                                                </a>
+                                                            </div>
+                                                        {% endif %}
+                                                        {% counter count as count %}
+                                                    {% endfor %}
+                                                </div>
+                                                {% counter_two count_two as count_two %}
+                                            {% endif %}
+                                            {% if count_two == 2 %}
+                                                <div class="gallery-block row collapse" id="collapseExample">
+                                                    {% for fig in block.value %}
+                                                        {% if count > 8 %}
+                                                            {% image fig.figure original as image_gallery %}
+                                                            <div class="col-md-3 col-sm-4">
+                                                                <a class="fancybox" href="{{ image_gallery.url }}"
+                                                                   rel="gallery-1">
+                                                                    <img src="{{ image_gallery.url }}"
+                                                                         class="img-responsive"
+                                                                         alt=""/>
+                                                                </a>
+                                                            </div>
+                                                        {% endif %}
+                                                        {% counter count as count %}
+                                                    {% endfor %}
+                                                </div>
+                                            {% endif %}
+                                            <a class="allphoto" data-toggle="collapse" href="#collapseExample"
+                                               aria-expanded="false" aria-controls="collapseExample">Все фотографии</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% elif block.block_type == 'youtube_block' %}
+                    <div class="container-fluid m_gallery">
+                        {% for video in block.value %}
+
+                            <div class="image_m_gallery" style="width: 400px; height: 300px">
+                                {{ video }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% elif block.block_type == 'youtube_handmade' %}
+                    <div class="container-fluid content-wrapper">
+                        <div class="row">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12"
+                                         style="display: flex; justify-content: center; flex-wrap: wrap">
+                                        {% for video in block.value %}
+                                            <div style="margin: 10px; text-align: center">
+                                                {{ video.caption }}
+                                                <iframe src="{{ video.video_field }}" frameborder="0" width="421"
+                                                        height="238"></iframe>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% elif block.block_type == 'library_doc' %}
+                    <div class="container-fluid content-wrapper">
+                        <div class="row">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="library-wrapper margin-bottom-50 row">
+                                            <ul>
+                                                {% for document in block.value %}
+                                                    <li>
+                                                        {% doc_icon document.related_document.url as doc_type %}
+                                                        {% doc_patch document.related_document.url as doc_patch %}
+                                                        <a class="file-link {{ doc_type }}"
+                                                           href="/media{{ doc_patch }}"
+                                                           target="_blank">{{ document.caption }}</a>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% elif block.block_type == 'question_answer' %}
+                    <div class="container-fluid content-wrapper">
+                        <div class="row">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel-group" id="accordion" role="tablist"
+                                             aria-multiselectable="true">
+                                            {% counter 0 as count %}
+                                            {% for form in block.value %}
+                                                <div class="panel">
+                                                    <div class="panel-heading" role="tab" id="heading{{ count }}">
+                                                        <a role="button" data-toggle="collapse" data-parent="#accordion"
+                                                           href="#collapse{{ count }}" role="button"
+                                                           aria-expanded="true" aria-controls="collapse{{ count }}">
+                                                            {{ form.question }}
+                                                        </a>
+                                                    </div>
+                                                    <div id="collapse{{ count }}"
+                                                            {#                                                         class="panel-collapse collapse in"#}
+                                                         class="panel-collapse collapse"
+                                                         role="tabpanel"
+                                                         aria-labelledby="heading{{ count }}">
+                                                        <div class="panel-body">
+                                                            {{ form.answer }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {% counter count as count %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% elif block.block_type == 'publication' %}
+                    <div class="container-fluid news-wrapper">
+                        <div class="row">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        {% for event in block.value %}
+                                            <div class="news-item">
+                                                <div class="news-date">
+                                                    <div class="day">{{ event.event_data }}</div>
+                                                    <div class="month">{{ event.event_month }}</div>
+                                                </div>
+                                                <div class="news-content">{{ event.event_name }}
+                                                    <p>{{ event.event_description }}</p>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% elif block.block_type == 'map_map' %}
+                    <div class="container-fluid content-wrapper contacts">
+                        <div class="row">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="map-wrapper">
+                                            {#Яндекс карта#}
+                                            <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A2b8567b0512faaa184fdb6ed01487617b43dfdb233d8b4b056c88594679cf3df&amp;source=constructor"
+                                                    width="1100"
+                                                    height="400"
+                                                    frameborder="0">
+                                            </iframe>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                {% endif %}
+
+
+            {% endfor %}
+        </article>
+
+    </div>
+
+
+{% endblock content %}
