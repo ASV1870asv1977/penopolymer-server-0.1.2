@@ -1,12 +1,6 @@
-from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.core.blocks import StructBlock, CharBlock, RichTextBlock
-from wagtail.core.fields import StreamField, RichTextField
-from wagtail.core.models import Page
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.images.blocks import ImageChooserBlock
-from django.db import models
-from wagtail.images.edit_handlers import ImageChooserPanel
-from django import forms
 
 
 class SlideshowBlock(StructBlock):
@@ -27,7 +21,7 @@ class ArticleBlockTwo(StructBlock):
     description_second = RichTextBlock(label='Статья (текст слева)')
 
     class Meta:
-        icon = 'form'
+        icon = 'doc-full'
         label = 'Статья (картинка справа)'
 
 

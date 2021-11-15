@@ -119,6 +119,7 @@
                 {% elif block.block_type == 'product_card_big' %}
                     <div class="container prod-cards">
                         <div class="row prod-list">
+                            {% counter 0 as count %}
                             {% for product in block.value %}
                                 {% image product.figure original as prodimage %}
                                 <div class="col-md-3 col-sm-6">
@@ -129,11 +130,12 @@
                                                  background-position: center top;
                                                  transition: all .3s;
                                                  box-sizing: border-box">
-                                        <a href="http://127.0.0.1:8000/" class="prod-link">
+                                        <a href="/products/product{{ count }}" class="prod-link">
                                             <span>{{ product.caption }}</span>
                                         </a>
                                     </div>
                                 </div>
+                                {% counter count as count %}
                             {% endfor %}
                         </div>
                     </div>

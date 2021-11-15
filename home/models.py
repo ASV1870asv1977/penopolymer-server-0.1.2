@@ -39,7 +39,7 @@ class HomePage(Page):
             ('article_text', RichTextBlock(
                 label='Текстовый блок',
                 help_text='Введите текст статьи',
-                icon='form',
+                icon='doc-full',
             )),
             ('product_card_big', blocks.ListBlock(CardProductBig(), label='Блок карточек продукции (больших)')),
             ('product_card_little', blocks.ListBlock(CardProductLittle(), label='Блок карточек продукции (маленьких)')),
