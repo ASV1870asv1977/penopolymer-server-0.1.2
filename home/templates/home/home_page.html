@@ -37,11 +37,26 @@
                         </div>
                     </div>
                 {% elif block.block_type == 'heading' %}
+                    <h1>Проверка collapse</h1>
+                    <a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseExample"
+                       aria-expanded="false" aria-controls="collapseExample">
+                        Link with href
+                    </a>
+                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
+                            aria-expanded="false" aria-controls="collapseExample">
+                        Button with data-target
+                    </button>
+                    <div class="collapse" id="collapseExample">
+                        <div class="well">
+                            ...
+                        </div>
+                    </div>
+
                     <div class="container">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="about-text">
-                                    <p>{{ block.value }}</p>
+                                    <p class="h2">{{ block.value }}</p>
                                 </div>
                             </div>
                         </div>
@@ -92,9 +107,12 @@
                     </div>
                 {% elif block.block_type == 'image_content' %}
                     {% image block.value original as image_content %}
-                    <div class="img-wrapper isolation-abilities image-schema">
+
+
+                    <div class="img-wrapper isolation-abilities image-schema" style="text-align: center">
                         <img src="{{ image_content.url }}">
                     </div>
+
                 {% elif block.block_type == 'images_show' %}
                     <div class="container-fluid m_gallery">
                         {% for fig in block.value %}
